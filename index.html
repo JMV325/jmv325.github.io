@@ -1,0 +1,1124 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Black Jack Reshuffled</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+
+#cardTable{
+    display:flex;
+    flex-wrap:wrap;
+    width:auto;
+    border-style:solid;
+    border-width:3px;
+    border-color:white;
+}
+
+#dealerTable{
+    display:flex;
+    flex-wrap:wrap;
+    width:auto;
+    border-style:solid;
+    border-width:3px;
+    border-color:white;
+}
+
+#betScreen{
+    width:500px;
+    height:275px;
+    border-color:black;
+    border-style:solid;
+    border-width:2px;
+    background-color:burlywood;
+    display:block;
+    animation:betUp 2s;
+    animation-fill-mode:forwards;
+}
+
+body{
+    background-color: rgb(2, 159, 2);
+    font-family: 'Fugaz One', cursive;
+}
+
+.controller{
+    width:100px;
+    font-family:'Fugaz One', cursive;
+    font-size: 15px;
+    display: none;
+}
+
+.chip{
+    height:50px;
+    width:50px;
+    border-color:black;
+    border-style:solid;
+    border-width:2px;
+    border-radius:55px;
+}
+
+#bet{
+    font-size:30px;
+    color:white;
+    width:75px;
+}
+
+#betText{
+    font-size: 20px;
+    text-shadow: 2px 2px white;
+}
+
+#betAdd{
+    background-color:lightgreen;
+}
+
+#betSub{
+    background-color:white;
+}
+
+#output{
+    font-size: 10px;
+}
+
+#playingCard1{
+    width:83px;
+}
+
+#playingCard2{
+    width:83px;
+}
+
+#dealerCard1{
+    width:83px;
+}
+
+#dealerCard2{
+    width:83px;
+}
+
+.control{
+    font-family: 'Fugaz One', cursive;
+    display:inline-block;
+}
+
+#title1{
+    position:absolute;
+    top:2px;
+    left:24px;
+    color:white;
+	animation: titleSlide 1.4s;
+}
+
+#title2{
+    position:absolute;
+    top:1px;
+    left:22px;
+    color:grey;
+	animation: titleSlide 1.2s;
+}
+
+#title3{
+    position:absolute;
+    top:0px;
+    left:20px;
+	animation: titleSlide 1s;
+}
+
+#winTotal{
+    position:absolute;
+    top:23px;
+    left:30%;
+    text-shadow: 2px 2px lightgreen;
+	animation: appear 5s;
+}
+
+#lossTotal{
+    position:absolute;
+    top:23px;
+    left:50%;
+    text-shadow: 2px 2px #ff0000;
+	animation: appear 4s;
+}
+
+#drawTotal{
+    position:absolute;
+    top:23px;
+    left:73%;
+    text-shadow: 2px 2px yellow;
+	animation: appear 3s;
+}
+
+#settingsMenu{
+    text-align: center;
+    position: absolute;
+    top: 40px;
+    left: 92%;
+    width: 75px;
+    height: 20px;
+    background-color:rgb(2, 159, 2);
+    transition: background-color 1s, width 1s, height 1s, transform 1s;
+}
+
+.menuItem{
+    font-size:15px;
+}
+
+#deckSetting{
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#deckSetting input{
+    width: 20px;
+}
+
+#settingsMenu:hover{
+    background-color: lightblue;
+    width: 180px;
+    height: 480px;
+    transform: translateX(-100px);
+}
+
+#settingsMenu:hover #deckSetting{
+    opacity: 1;
+}
+
+img.card{
+    width:83px;
+	animation: cardSlide 1s;
+}
+
+#aoe{
+    font-family:'Fugaz One', cursive;
+    font-size: 30px;
+    text-shadow: 2px 2px ;
+    text-align: center;
+    opacity: 0;
+    display: flex;
+    position: absolute;
+    top: 40%;
+    left: 18%;
+    width: auto;
+    transform: skew(-20deg);
+}
+
+div.small{
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    height: 100px;
+    width: 50px;
+}
+
+#slant1{
+    animation: slantSlide2 2s;
+}
+
+#slant2{
+    animation: slantSlide1 2s;
+}
+
+#slant3{
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    height: 100px;
+    width: 500px;
+    animation: middle 2s;
+}
+
+#slant4{
+    animation: slantSlide2 2s;
+}
+
+#slant5{
+    animation: slantSlide1 2s;
+}
+
+@keyframes cardSlide{
+	0%{transform:translateX(540px)}
+	100%{transform:translateX(0px)}
+}
+	
+@keyframes titleSlide{
+	0%{transform:translateX(540px)}
+	100%{transform:translateX(0px)}
+} 
+	
+@keyframes appear{
+	0%{opacity: 0}
+	100%{opacity: 1}
+}
+
+@keyframes slantSlide1{
+	0%{transform:translateY(440px); opacity: 0;}
+    50%{transform:translateY(0px); opacity: 1;}
+	100%{transform:translateY(-440px); opacity: 0;}
+}
+
+@keyframes slantSlide2{
+    0%{transform:translateY(-440px); opacity: 0;}
+	50%{transform:translateY(0px); opacity: 1;}
+    100%{transform:translateY(440px); opacity: 0;}
+}
+
+@keyframes middle{
+    0%{transform:translateX(440px); opacity: 0;}
+    50%{transform:translateX(0px); opacity: 1;}
+	100%{transform:translateX(-440px); opacity: 0;}
+}
+
+@keyframes betUp{
+    0%{transform:translateY(40px)}
+    100%{transform:translateY(-420px)}
+}
+
+@keyframes betDown{
+    0%{transform:translateY(-420px)}
+    100%{transform:translateY(40px)}
+}
+
+</style>
+
+<script>
+
+var playerTotal
+var dealerTotal
+var card1
+var card1Change
+var card2
+var card2Change
+var dealerCard3
+var dcardReveal
+var deckNum
+var idNum
+var cardsNum
+var cardId
+var cardImage
+var pcard1
+var pcard1Change
+var pcard2
+var pcard2Change
+var playingCard3
+var cardBack = "https://i.pinimg.com/originals/40/66/44/40664440b9dcbf61bbd896b919c6b703.png"
+var deck = ["Ah","2h","3h","4h","5h","6h","7h","8h","9h","10h","Jh","Qh","Kh","Ad","2d","3d","4d","5d","6d","7d","8d","9d","10d","Jd","Qd","Kd","Ac","2c","3c","4c","5c","6c","7c","8c","9c","10c","Jc","Qc","Kc","As","2s","3s","4s","5s","6s","7s","8s","9s","10s","Js","Qs","Ks", "Ah","2h","3h","4h","5h","6h","7h","8h","9h","10h","Jh","Qh","Kh","Ad","2d","3d","4d","5d","6d","7d","8d","9d","10d","Jd","Qd","Kd","Ac","2c","3c","4c","5c","6c","7c","8c","9c","10c","Jc","Qc","Kc","As","2s","3s","4s","5s","6s","7s","8s","9s","10s","Js","Qs","Ks",]
+var deckImages = ["https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Ace_of_hearts.svg/83px-Ace_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/2_of_hearts.svg/83px-2_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/3_of_hearts.svg/83px-3_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/4_of_hearts.svg/83px-4_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/5_of_hearts.svg/83px-5_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/6_of_hearts.svg/83px-6_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/7_of_hearts.svg/83px-7_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/8_of_hearts.svg/83px-8_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/9_of_hearts.svg/83px-9_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/10_of_hearts.svg/83px-10_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jack_of_hearts2.svg/83px-Jack_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Queen_of_hearts2.svg/83px-Queen_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/King_of_hearts2.svg/83px-King_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ace_of_diamonds.svg/83px-Ace_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2_of_diamonds.svg/83px-2_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/3_of_diamonds.svg/83px-3_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/4_of_diamonds.svg/83px-4_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/5_of_diamonds.svg/83px-5_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/6_of_diamonds.svg/83px-6_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/7_of_diamonds.svg/83px-7_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/8_of_diamonds.svg/83px-8_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/9_of_diamonds.svg/83px-9_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/10_of_diamonds.svg/83px-10_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Jack_of_diamonds2.svg/83px-Jack_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Queen_of_diamonds2.svg/83px-Queen_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/King_of_diamonds2.svg/83px-King_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ace_of_clubs.svg/83px-Ace_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2_of_clubs.svg/83px-2_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/3_of_clubs.svg/83px-3_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/4_of_clubs.svg/83px-4_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/5_of_clubs.svg/83px-5_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/6_of_clubs.svg/83px-6_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/7_of_clubs.svg/83px-7_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/8_of_clubs.svg/83px-8_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/9_of_clubs.svg/83px-9_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/10_of_clubs.svg/83px-10_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jack_of_clubs2.svg/83px-Jack_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_clubs2.svg/83px-Queen_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/King_of_clubs2.svg/83px-King_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/83px-Ace_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2_of_spades.svg/83px-2_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/3_of_spades.svg/83px-3_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/4_of_spades.svg/83px-4_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/5_of_spades.svg/83px-5_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/6_of_spades.svg/83px-6_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/7_of_spades.svg/83px-7_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/8_of_spades.svg/83px-8_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/9_of_spades.svg/83px-9_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/10_of_spades.svg/83px-10_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Jack_of_spades2.svg/83px-Jack_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_spades2.svg/83px-Queen_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/King_of_spades2.svg/83px-King_of_spades2.svg.png","https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Ace_of_hearts.svg/83px-Ace_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/2_of_hearts.svg/83px-2_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/3_of_hearts.svg/83px-3_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/4_of_hearts.svg/83px-4_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/5_of_hearts.svg/83px-5_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/6_of_hearts.svg/83px-6_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/7_of_hearts.svg/83px-7_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/8_of_hearts.svg/83px-8_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/9_of_hearts.svg/83px-9_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/10_of_hearts.svg/83px-10_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jack_of_hearts2.svg/83px-Jack_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Queen_of_hearts2.svg/83px-Queen_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/King_of_hearts2.svg/83px-King_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ace_of_diamonds.svg/83px-Ace_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2_of_diamonds.svg/83px-2_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/3_of_diamonds.svg/83px-3_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/4_of_diamonds.svg/83px-4_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/5_of_diamonds.svg/83px-5_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/6_of_diamonds.svg/83px-6_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/7_of_diamonds.svg/83px-7_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/8_of_diamonds.svg/83px-8_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/9_of_diamonds.svg/83px-9_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/10_of_diamonds.svg/83px-10_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Jack_of_diamonds2.svg/83px-Jack_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Queen_of_diamonds2.svg/83px-Queen_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/King_of_diamonds2.svg/83px-King_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ace_of_clubs.svg/83px-Ace_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2_of_clubs.svg/83px-2_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/3_of_clubs.svg/83px-3_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/4_of_clubs.svg/83px-4_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/5_of_clubs.svg/83px-5_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/6_of_clubs.svg/83px-6_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/7_of_clubs.svg/83px-7_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/8_of_clubs.svg/83px-8_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/9_of_clubs.svg/83px-9_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/10_of_clubs.svg/83px-10_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jack_of_clubs2.svg/83px-Jack_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_clubs2.svg/83px-Queen_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/King_of_clubs2.svg/83px-King_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/83px-Ace_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2_of_spades.svg/83px-2_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/3_of_spades.svg/83px-3_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/4_of_spades.svg/83px-4_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/5_of_spades.svg/83px-5_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/6_of_spades.svg/83px-6_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/7_of_spades.svg/83px-7_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/8_of_spades.svg/83px-8_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/9_of_spades.svg/83px-9_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/10_of_spades.svg/83px-10_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Jack_of_spades2.svg/83px-Jack_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_spades2.svg/83px-Queen_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/King_of_spades2.svg/83px-King_of_spades2.svg.png",]
+var deckValue
+var selectedCard
+var num
+var wins = 0
+var losses = 0
+var draws = 0
+var nextMove = 0
+var dealerAdditions = [0]
+var wallet = 500
+var betTotal = 0
+var betSubtraction = 0
+
+function betAdd(){
+    betSubtraction = 0
+    document.getElementById("betAdd").style.backgroundColor = "lightgreen"
+    document.getElementById("betSub").style.backgroundColor = "white"
+}
+
+function betSub(){
+    betSubtraction = 1
+    document.getElementById("betAdd").style.backgroundColor = "white"
+    document.getElementById("betSub").style.backgroundColor = "red"
+}
+
+function bet1(){
+    if(wallet < 1 && betSubtraction == 0){
+        alert("Insufficient Funds")
+    }else if(betSubtraction == 1){
+
+        if(betTotal < 1){
+            wallet = wallet + betTotal
+            betTotal = betTotal - betTotal
+        }else{
+            betTotal = betTotal - 1
+            wallet = wallet + 1
+        }
+
+    }else{
+        betTotal = betTotal + 1
+        wallet = wallet - 1
+    }
+
+    document.getElementById("bet").innerHTML = "$" + betTotal
+    document.getElementById("wallet").innerHTML = "$" + wallet
+}
+
+function bet5(){
+    if(wallet < 5 && betSubtraction == 0){
+        alert("Insufficient Funds")
+    }else if(betSubtraction == 1){
+
+        if(betTotal < 5){
+            wallet = wallet + betTotal
+            betTotal = betTotal - betTotal
+        }else{
+            betTotal = betTotal - 5
+            wallet = wallet + 5
+        }
+
+    }else{
+        betTotal = betTotal + 5
+        wallet = wallet - 5
+    }
+
+    document.getElementById("bet").innerHTML = "$" + betTotal
+    document.getElementById("wallet").innerHTML = "$" + wallet
+}
+
+function bet25(){
+    if(wallet < 25 && betSubtraction == 0){
+        alert("Insufficient Funds")
+    }else if(betSubtraction == 1){
+
+        if(betTotal < 25){
+            wallet = wallet + betTotal
+            betTotal = betTotal - betTotal
+        }else{
+            betTotal = betTotal - 25
+            wallet = wallet + 25
+        }
+
+    }else{
+        betTotal = betTotal + 25
+        wallet = wallet - 25
+    }
+
+    document.getElementById("bet").innerHTML = "$" + betTotal
+    document.getElementById("wallet").innerHTML = "$" + wallet
+}
+
+function bet100(){
+
+    if(wallet < 100 && betSubtraction == 0){
+        alert("Insufficient Funds")
+    }else if(betSubtraction == 1){
+
+        if(betTotal < 100){
+            wallet = wallet + betTotal
+            betTotal = betTotal - betTotal
+        }else{
+            betTotal = betTotal - 100
+            wallet = wallet + 100
+        }
+
+    }else{
+        betTotal = betTotal + 100
+        wallet = wallet - 100
+    }
+
+    document.getElementById("bet").innerHTML = "$" + betTotal
+    document.getElementById("wallet").innerHTML = "$" + wallet
+}
+
+function newGame2(){
+
+    document.getElementById("betScreen").style.display = "block"
+    document.getElementById("newGame").style.display = "none"
+    document.getElementById("betScreen").style.animation = "betUp 2s"
+    document.getElementById("betScreen").style.animationFillMode = "forwards"
+    playingCard1.src = cardBack
+    playingCard2.src = cardBack
+    dealerCard1.src = cardBack
+    dealerCard2.src = cardBack
+    document.getElementById("playerHand").innerHTML = " "
+    document.getElementById("dealerHand").innerHTML = " "
+    document.getElementById("newCards").innerHTML = " "
+    document.getElementById("newdealerCards").innerHTML = " "
+}
+
+function newGame(){
+
+    document.getElementById("betScreen").style.animation = "betDown 2s"
+    function animationWipe(){
+        document.getElementById("betScreen").style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+    window.resizeTo(1097, 535)
+    deckValue = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10,]
+    deckImages = ["https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Ace_of_hearts.svg/83px-Ace_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/2_of_hearts.svg/83px-2_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/3_of_hearts.svg/83px-3_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/4_of_hearts.svg/83px-4_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/5_of_hearts.svg/83px-5_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/6_of_hearts.svg/83px-6_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/7_of_hearts.svg/83px-7_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/8_of_hearts.svg/83px-8_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/9_of_hearts.svg/83px-9_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/10_of_hearts.svg/83px-10_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jack_of_hearts2.svg/83px-Jack_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Queen_of_hearts2.svg/83px-Queen_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/King_of_hearts2.svg/83px-King_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ace_of_diamonds.svg/83px-Ace_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2_of_diamonds.svg/83px-2_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/3_of_diamonds.svg/83px-3_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/4_of_diamonds.svg/83px-4_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/5_of_diamonds.svg/83px-5_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/6_of_diamonds.svg/83px-6_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/7_of_diamonds.svg/83px-7_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/8_of_diamonds.svg/83px-8_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/9_of_diamonds.svg/83px-9_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/10_of_diamonds.svg/83px-10_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Jack_of_diamonds2.svg/83px-Jack_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Queen_of_diamonds2.svg/83px-Queen_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/King_of_diamonds2.svg/83px-King_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ace_of_clubs.svg/83px-Ace_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2_of_clubs.svg/83px-2_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/3_of_clubs.svg/83px-3_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/4_of_clubs.svg/83px-4_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/5_of_clubs.svg/83px-5_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/6_of_clubs.svg/83px-6_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/7_of_clubs.svg/83px-7_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/8_of_clubs.svg/83px-8_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/9_of_clubs.svg/83px-9_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/10_of_clubs.svg/83px-10_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jack_of_clubs2.svg/83px-Jack_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_clubs2.svg/83px-Queen_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/King_of_clubs2.svg/83px-King_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/83px-Ace_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2_of_spades.svg/83px-2_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/3_of_spades.svg/83px-3_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/4_of_spades.svg/83px-4_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/5_of_spades.svg/83px-5_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/6_of_spades.svg/83px-6_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/7_of_spades.svg/83px-7_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/8_of_spades.svg/83px-8_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/9_of_spades.svg/83px-9_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/10_of_spades.svg/83px-10_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Jack_of_spades2.svg/83px-Jack_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_spades2.svg/83px-Queen_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/King_of_spades2.svg/83px-King_of_spades2.svg.png","https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Ace_of_hearts.svg/83px-Ace_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/2_of_hearts.svg/83px-2_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/3_of_hearts.svg/83px-3_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/4_of_hearts.svg/83px-4_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/5_of_hearts.svg/83px-5_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/6_of_hearts.svg/83px-6_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/7_of_hearts.svg/83px-7_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/8_of_hearts.svg/83px-8_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/9_of_hearts.svg/83px-9_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/10_of_hearts.svg/83px-10_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jack_of_hearts2.svg/83px-Jack_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Queen_of_hearts2.svg/83px-Queen_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/King_of_hearts2.svg/83px-King_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ace_of_diamonds.svg/83px-Ace_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2_of_diamonds.svg/83px-2_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/3_of_diamonds.svg/83px-3_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/4_of_diamonds.svg/83px-4_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/5_of_diamonds.svg/83px-5_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/6_of_diamonds.svg/83px-6_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/7_of_diamonds.svg/83px-7_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/8_of_diamonds.svg/83px-8_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/9_of_diamonds.svg/83px-9_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/10_of_diamonds.svg/83px-10_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Jack_of_diamonds2.svg/83px-Jack_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Queen_of_diamonds2.svg/83px-Queen_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/King_of_diamonds2.svg/83px-King_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ace_of_clubs.svg/83px-Ace_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2_of_clubs.svg/83px-2_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/3_of_clubs.svg/83px-3_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/4_of_clubs.svg/83px-4_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/5_of_clubs.svg/83px-5_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/6_of_clubs.svg/83px-6_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/7_of_clubs.svg/83px-7_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/8_of_clubs.svg/83px-8_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/9_of_clubs.svg/83px-9_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/10_of_clubs.svg/83px-10_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jack_of_clubs2.svg/83px-Jack_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_clubs2.svg/83px-Queen_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/King_of_clubs2.svg/83px-King_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/83px-Ace_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2_of_spades.svg/83px-2_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/3_of_spades.svg/83px-3_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/4_of_spades.svg/83px-4_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/5_of_spades.svg/83px-5_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/6_of_spades.svg/83px-6_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/7_of_spades.svg/83px-7_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/8_of_spades.svg/83px-8_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/9_of_spades.svg/83px-9_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/10_of_spades.svg/83px-10_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Jack_of_spades2.svg/83px-Jack_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_spades2.svg/83px-Queen_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/King_of_spades2.svg/83px-King_of_spades2.svg.png",]
+    document.getElementById("newCards").innerHTML = " "
+    document.getElementById("newdealerCards").innerHTML = " "
+    dealerCard2.src = cardBack
+    document.getElementById("playerHand").style.color = "black"
+    document.getElementById("dealerHand").style.color = "black"
+    pcard1Change = 0
+    pcard2Change = 0
+    card1Change = 0
+    card2Change = 0
+    playerTotal = 0
+    num = 0
+    nextMove = 0
+    dhandUpdate = 0
+    idNum = 1
+    cardsNum = 0
+    dealerAdditions = [0]
+    hitBtn.style.display = "initial"
+    plyBtn.style.display = "initial"
+    aoe.style.opacity = "1"
+    aoe.style.display = "none"
+    aoe.style.height = (screen.availHeight / 2) + 50
+    aoe.style.width = (screen.availWidth / 2)
+    console.clear()
+
+//Update Deck Number
+var loopNum = 0
+deckNum = document.getElementById("decknumSet").value
+while(loopNum < (deckNum - 2)){
+    deckValue.push(11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, )
+    deckImages.push("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Ace_of_hearts.svg/83px-Ace_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/2_of_hearts.svg/83px-2_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/3_of_hearts.svg/83px-3_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/4_of_hearts.svg/83px-4_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/5_of_hearts.svg/83px-5_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/6_of_hearts.svg/83px-6_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/7_of_hearts.svg/83px-7_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/8_of_hearts.svg/83px-8_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/9_of_hearts.svg/83px-9_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/10_of_hearts.svg/83px-10_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jack_of_hearts2.svg/83px-Jack_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Queen_of_hearts2.svg/83px-Queen_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/King_of_hearts2.svg/83px-King_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ace_of_diamonds.svg/83px-Ace_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2_of_diamonds.svg/83px-2_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/3_of_diamonds.svg/83px-3_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/4_of_diamonds.svg/83px-4_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/5_of_diamonds.svg/83px-5_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/6_of_diamonds.svg/83px-6_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/7_of_diamonds.svg/83px-7_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/8_of_diamonds.svg/83px-8_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/9_of_diamonds.svg/83px-9_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/10_of_diamonds.svg/83px-10_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Jack_of_diamonds2.svg/83px-Jack_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Queen_of_diamonds2.svg/83px-Queen_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/King_of_diamonds2.svg/83px-King_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ace_of_clubs.svg/83px-Ace_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2_of_clubs.svg/83px-2_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/3_of_clubs.svg/83px-3_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/4_of_clubs.svg/83px-4_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/5_of_clubs.svg/83px-5_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/6_of_clubs.svg/83px-6_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/7_of_clubs.svg/83px-7_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/8_of_clubs.svg/83px-8_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/9_of_clubs.svg/83px-9_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/10_of_clubs.svg/83px-10_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jack_of_clubs2.svg/83px-Jack_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_clubs2.svg/83px-Queen_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/King_of_clubs2.svg/83px-King_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/83px-Ace_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2_of_spades.svg/83px-2_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/3_of_spades.svg/83px-3_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/4_of_spades.svg/83px-4_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/5_of_spades.svg/83px-5_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/6_of_spades.svg/83px-6_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/7_of_spades.svg/83px-7_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/8_of_spades.svg/83px-8_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/9_of_spades.svg/83px-9_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/10_of_spades.svg/83px-10_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Jack_of_spades2.svg/83px-Jack_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_spades2.svg/83px-Queen_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/King_of_spades2.svg/83px-King_of_spades2.svg.png",)
+    loopNum = loopNum + 1
+}
+
+//Generating Player Cards
+ 
+//pcard1
+do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length);
+    num = num + 1
+
+if(deckValue[selectedCard] == 0){
+
+    do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length)
+
+    }while(deckValue[selectedCard] == 0)
+
+}else{}
+
+    pcard1 = deckValue[selectedCard]
+    document.getElementById("playingCard1").src = deckImages[selectedCard]
+    deckValue[selectedCard] = 0
+
+}while(num < 1)
+
+//pcard2
+do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length);
+    num = num + 1
+
+if(deckValue[selectedCard] == 0){
+
+    do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length)
+
+    }while(deckValue[selectedCard] == 0)
+
+}else{}
+
+    pcard2 = deckValue[selectedCard]
+    document.getElementById("playingCard2").src = deckImages[selectedCard]
+    deckValue[selectedCard] = 0
+
+}while(num < 2)
+
+
+//Generating Dealer Cards
+
+//card1
+do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length);
+    num = num + 1
+
+if(deckValue[selectedCard] == 0){
+
+    do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length)
+
+    }while(deckValue[selectedCard] == 0)
+
+}else{}
+
+    card1 = deckValue[selectedCard]
+    document.getElementById("dealerCard1").src = deckImages[selectedCard]
+    deckValue[selectedCard] = 0
+
+}while(num < 3)
+
+//card2
+do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length);
+    num = num + 1
+
+if(deckValue[selectedCard] == 0){
+
+    do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length)
+
+    }while(deckValue[selectedCard] == 0)
+
+}else{}
+
+    card2 = deckValue[selectedCard]
+    dcardReveal = selectedCard
+    deckValue[selectedCard] = 0
+
+}while(num < 4)
+
+//Setting Hand Values
+playerTotal = pcard1 + pcard2
+dealerTotal = card1 + card2
+
+//Adjust Interface
+document.getElementById("dealerHand").innerHTML = card1;
+document.getElementById("output").innerHTML = " ";
+
+
+//Player Ace Events
+if(pcard1 == 11 && playerTotal <= 20){
+
+    if(confirm("You got an Ace! Would you like to count it as a 1?\nOriginal Total: " + (pcard1 + pcard2) + "\nNew Total: " + (1 + pcard2)) == true){
+        pcard1 = 1
+        pcard1Change = 1
+    }else{
+        pcard1 = 11
+    }
+
+}else if(pcard2 == 11 && playerTotal <= 20){
+
+    if(confirm("You got an Ace! Would you like to count it as a 1?\nOriginal Total: " + (pcard1 + pcard2) + "\nNew Total: " + (1 + pcard1)) == true){
+        pcard2 = 1
+        pcard2Change = 1
+    }else{
+        pcard2 = 11
+    }
+
+}else{}
+	
+if(playerTotal == 22){
+	pcard1 = 1
+	pcard1Change = 1
+}
+
+//Dealer Ace Event
+if(dealerTotal == 22){
+    card1 = 1
+    card1Change = 1
+}else{}
+
+//Adjust Hands
+playerTotal = pcard1 + pcard2
+dealerTotal = card1 + card2
+document.getElementById("playerHand").innerHTML = playerTotal;
+
+//BlackJack Events
+if(playerTotal == 21 && dealerTotal < 21){
+
+    document.getElementById("dealerHand").style.color = "red"
+    document.getElementById("dealerHand").innerHTML = dealerTotal;
+    dealerCard2.src = deckImages[dcardReveal]
+    wins = wins + 1
+    document.getElementById("winTotal").innerHTML = "Wins: " + wins
+	hitBtn.style.display = "none";
+	plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+
+    document.getElementById("slant3").innerHTML = "Blackjack!"
+    document.getElementById("slant3").style.textShadow = "2px 2px 1px lightgreen"
+    aoe.style.display = "flex"
+    function animationWipe(){
+        aoe.style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+    wallet = wallet + (betTotal * 2)
+    betTotal = 0
+
+}else if(playerTotal == 21 && dealerTotal == 21){
+
+    document.getElementById("playerHand").style.color = "yellow"
+    document.getElementById("dealerHand").style.color = "yellow"
+    document.getElementById("dealerHand").innerHTML = dealerTotal;
+    dealerCard2.src = deckImages[dcardReveal]
+    draws = draws + 1
+    document.getElementById("drawTotal").innerHTML = "Draws: " + draws
+	hitBtn.style.display = "none";
+	plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+
+    document.getElementById("slant3").innerHTML = "Push!"
+    document.getElementById("slant3").style.textShadow = "2px 2px 1px yellow"
+    aoe.style.display = "flex"
+    function animationWipe(){
+        aoe.style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+    wallet = wallet + betTotal
+    betTotal = 0
+
+}else if(playerTotal < 21 && dealerTotal == 21){
+
+    document.getElementById("playerHand").style.color = "red"
+    document.getElementById("dealerHand").innerHTML = dealerTotal;
+    dealerCard2.src = deckImages[dcardReveal]
+    losses = losses + 1
+    document.getElementById("lossTotal").innerHTML = "Losses: " + losses
+	hitBtn.style.display = "none";
+	plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+
+    document.getElementById("slant3").innerHTML = "Bust!"
+    document.getElementById("slant3").style.textShadow = "2px 2px 1px red"
+    aoe.style.display = "flex"
+    function animationWipe(){
+        aoe.style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+    betTotal = 0
+
+}
+
+document.getElementById("bet").innerHTML = "$" + betTotal
+document.getElementById("wallet").innerHTML = "$" + wallet
+
+}
+
+
+function hit(){
+
+//Select New Card
+selectedCard = Math.floor(Math.random()*deckValue.length);
+
+if(deckValue[selectedCard] == 0){
+
+    do{
+
+    selectedCard = Math.floor(Math.random()*deckValue.length)
+
+    }while(deckValue[selectedCard] == 0)
+
+}else{}
+
+    playerTotal = playerTotal + deckValue[selectedCard]
+    playingCard3 = document.createElement('img')
+    playingCard3.src = deckImages[selectedCard]
+    playingCard3.classList.add('card')
+    var location = document.getElementById("newCards")
+    location.appendChild(playingCard3)
+    document.getElementById("playerHand").innerHTML = playerTotal   
+
+//Ace Events
+    if(deckValue[selectedCard] == 11 && playerTotal > 21){
+
+        playerTotal = playerTotal - 10
+
+    } else if(deckValue[selectedCard] == 11 && playerTotal <= 21){
+
+        if(confirm("You got an Ace! Would you like to count it as a 1?\nOriginal Total: " + (playerTotal) + "\nNew Total: " + (playerTotal-10)) == true){
+            playerTotal = playerTotal - 10
+        }else{
+            playerTotal = playerTotal
+        }
+
+    }else if(pcard1 == 11 && playerTotal > 21 && pcard1Change == 0){
+
+        if(confirm("You went over 21! Would you like to change your ace to a 1?") == true){
+            playerTotal = playerTotal - 10
+            pcard1Change = 1
+        }else{
+            playerTotal = playerTotal
+        }
+
+    }else if(pcard2 == 11 && playerTotal > 21 && pcard2Change == 0){
+
+        if(confirm("You went over 21! Would you like to change your ace to a 1?") == true){
+            playerTotal = playerTotal - 10
+            pcard2Change = 1
+        }else{
+            playerTotal = playerTotal
+        }
+
+    }else{}
+
+    deckValue[selectedCard] = 0
+    document.getElementById("playerHand").innerHTML = playerTotal;
+
+//Dealer wins
+if(playerTotal > 21){
+
+	document.getElementById("playerHand").style.color = "red"
+	document.getElementById("dealerHand").innerHTML = dealerTotal;
+
+    /*cardId = 1
+    while(cardId <= cardsNum){
+
+    cardImage = dealerAdditions[cardId]
+    document.getElementById(cardId).src = deckImages[cardImage]
+    cardId = cardId + 1
+
+    }*/
+
+    document.getElementById("slant3").innerHTML = "Bust!"
+    document.getElementById("slant3").style.textShadow = "2px 2px 1px red"
+    aoe.style.display = "flex"
+    function animationWipe(){
+        aoe.style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+	dealerCard2.src = deckImages[dcardReveal]
+	losses = losses + 1
+	document.getElementById("lossTotal").innerHTML = "Losses: " + losses
+	hitBtn.style.display = "none";
+	plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+    nextMove = 1
+
+    betTotal = 0
+
+}else{}
+
+//Only update dealerTotal if another card will be taken or has been taken
+/*if(dealerTotal < 17 && nextMove == 0 && dhandUpdate == 0){
+
+    dealerTotal = card1 + card2
+
+}else{}
+
+//Dealer's Turn
+if(dealerTotal < 17 && nextMove == 0){
+
+        dealerCard2.src = deckImages[dcardReveal]
+        document.getElementById("dealerHand").innerHTML = dealerTotal
+        selectedCard = Math.floor(Math.random()*deckValue.length);
+
+        if(deckValue[selectedCard] == 0){
+
+            do{
+
+            selectedCard = Math.floor(Math.random()*deckValue.length)
+
+            }while(deckValue[selectedCard] == 0)
+
+        }else{}
+
+            dealerTotal = dealerTotal + deckValue[selectedCard]
+            dealerCard3 = document.createElement('img')
+            dealerCard3.src = cardBack
+            dealerCard3.classList.add('card')
+            dealerCard3.setAttribute('id', idNum)
+            var location = document.getElementById("newdealerCards")
+            location.appendChild(dealerCard3)
+            dealerAdditions.push(selectedCard, )
+   
+            if(card1 == 11 && dealerTotal > 21 && card1Change == 0){
+                dealerTotal = dealerTotal - 10
+                card1Change = 1
+            }else if(card2 == 11 && dealerTotal > 21 && card2Change == 0){
+                dealerTotal = dealerTotal - 10
+                card2Change = 1
+            }else{}
+    
+            if(deckValue[selectedCard] == 11 && dealerTotal > 21){
+                dealerTotal = dealerTotal - 10
+            }else if(deckValue[selectedCard] == 11 && dealerTotal <= 21){
+                dealerTotal = dealerTotal
+            }else{}
+    
+            deckValue[selectedCard] = 0
+            idNum = idNum + 1
+            cardsNum = cardsNum + 1
+            dhandUpdate = 1
+    }else{}*/
+
+    //Dealer Loses
+    /*if(dealerTotal > 21){
+
+        document.getElementById("dealerHand").style.color = "red"
+        document.getElementById("dealerHand").innerHTML = dealerTotal;
+
+        //Reveal Cards
+        cardId = 1
+        while(cardId <= cardsNum){
+
+        cardImage = dealerAdditions[cardId]
+        document.getElementById(cardId).src = deckImages[cardImage]
+        cardId = cardId + 1
+
+        }
+
+        document.getElementById("slant3").innerHTML = "Win!"
+        document.getElementById("slant3").style.textShadow = "2px 2px 1px lightgreen"
+        aoe.style.display = "flex"
+        function animationWipe(){
+            aoe.style.display = "none"
+        }
+        setTimeout(animationWipe, 2000)
+
+        wins = wins + 1
+        document.getElementById("winTotal").innerHTML = "Wins: " + wins
+        hitBtn.style.display = "none";
+        plyBtn.style.display = "none";
+
+}*/
+
+document.getElementById("bet").innerHTML = "$" + betTotal
+document.getElementById("wallet").innerHTML = "$" + wallet
+
+}
+
+
+function drawCheck(){
+
+    dealerCard2.src = deckImages[dcardReveal]
+
+//Dealer Draws Cards After Player is Done
+while(dealerTotal < 17){
+
+    selectedCard = Math.floor(Math.random()*deckValue.length);
+
+if(deckValue[selectedCard] == 0){
+
+    do{
+
+    	selectedCard = Math.floor(Math.random()*deckValue.length)
+
+    }while(deckValue[selectedCard] == 0)   
+
+}else{}
+
+        dealerTotal = dealerTotal + deckValue[selectedCard]
+        dealerCard3 = document.createElement('img')
+        dealerCard3.src = deckImages[selectedCard]
+        dealerCard3.classList.add('card')
+        var location = document.getElementById("newdealerCards")
+        location.appendChild(dealerCard3)
+    
+    if(card1 == 11 && dealerTotal > 21 && card1Change == 0){
+        dealerTotal = dealerTotal - 10
+        card1Change = 1
+    }else if(card2 == 11 && dealerTotal > 21 && card2Change == 0){
+        dealerTotal = dealerTotal - 10
+        card2Change = 1
+    }else{}
+
+    if(deckValue[selectedCard] == 11 && dealerTotal > 21){
+        dealerTotal = dealerTotal - 10
+    }else if(deckValue[selectedCard] == 11 && dealerTotal <= 21){
+        dealerTotal = dealerTotal
+    }else{} 
+
+    deckValue[selectedCard] = 0
+
+}
+
+
+//Reveal Cards
+/*cardId = 1
+while(cardId <= cardsNum){
+
+cardImage = dealerAdditions[cardId]
+document.getElementById(cardId).src = deckImages[cardImage]
+cardId = cardId + 1
+
+}*/
+
+//Dealer Loses
+if(dealerTotal > 21 && playerTotal < 22){
+
+    document.getElementById("dealerHand").style.color = "red"
+    document.getElementById("dealerHand").innerHTML = dealerTotal;
+    wins = wins + 1
+    document.getElementById("winTotal").innerHTML = "Wins: " + wins
+    hitBtn.style.display = "none";
+    plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+
+    document.getElementById("slant3").innerHTML = "Win!"
+    document.getElementById("slant3").style.textShadow = "2px 2px 1px lightgreen"
+    aoe.style.display = "flex"
+    function animationWipe(){
+        aoe.style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+    wallet = wallet + (betTotal * 2)
+    betTotal = 0
+
+}else if(playerTotal > dealerTotal){
+
+    document.getElementById("dealerHand").style.color = "red"
+    document.getElementById("dealerHand").innerHTML = dealerTotal;
+    wins = wins + 1
+    document.getElementById("winTotal").innerHTML = "Wins: " + wins
+    hitBtn.style.display = "none";
+    plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+    
+    document.getElementById("slant3").innerHTML = "Win!"
+    document.getElementById("slant3").style.textShadow = "2px 2px 1px lightgreen"
+    aoe.style.display = "flex"
+    function animationWipe(){
+        aoe.style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+    wallet = wallet + (betTotal * 2)
+    betTotal = 0
+
+}else if(playerTotal == dealerTotal){
+
+    document.getElementById("playerHand").style.color = "yellow"
+    document.getElementById("dealerHand").style.color = "yellow"
+    document.getElementById("dealerHand").innerHTML = dealerTotal;
+    draws = draws + 1
+    document.getElementById("drawTotal").innerHTML = "Draws: " + draws
+    hitBtn.style.display = "none";
+    plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+
+    document.getElementById("slant3").innerHTML = "Push!"
+    document.getElementById("slant3").style.textShadow = "2px 2px 1px yellow"
+    aoe.style.display = "flex"
+    function animationWipe(){
+        aoe.style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+    wallet = wallet + betTotal
+    betTotal = 0
+
+}else{}
+
+//Dealer Wins
+if(dealerTotal < 22 && dealerTotal > playerTotal){
+
+    document.getElementById("playerHand").style.color = "red"
+    document.getElementById("dealerHand").innerHTML = dealerTotal;
+    losses = losses + 1
+    document.getElementById("lossTotal").innerHTML = "Losses: " + losses
+    hitBtn.style.display = "none";
+    plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+
+    document.getElementById("slant3").innerHTML = "Bust!"
+    document.getElementById("slant3").style.textShadow = "2px 2px 1px red"
+    aoe.style.display = "flex"
+    function animationWipe(){
+        aoe.style.display = "none"
+    }
+    setTimeout(animationWipe, 2000)
+
+    betTotal = 0
+
+}else{}
+
+document.getElementById("bet").innerHTML = "$" + betTotal
+document.getElementById("wallet").innerHTML = "$" + wallet
+
+}
+
+</script>
+</head>
+
+
+<body>
+<center><h1 id="title1"><b><i>BLACKJACK</i><b></b></h1></center>
+<center><h1 id="title2"><b><i>BLACKJACK</i><b></b></h1></center>
+<center><h1 id="title3"><b><i>BLACKJACK</i><b></b></h1></center>
+<p id="winTotal">Wins:</p>
+<p id="lossTotal">Losses:</p>
+<p id="drawTotal">Draws:</p>
+<div id="settingsMenu">Settings
+
+    <div id="deckSetting" class="menuItem">
+        <p>Number of Decks:</p>
+        <input type="text" id="decknumSet">
+    </div>
+
+</div>
+<br><br><br>
+<center>Dealers Hand: <div id="dealerHand" class="control"></div></center><br>
+
+<div id="dealerTable">
+
+    <img id="dealerCard1" src="https://i.pinimg.com/originals/40/66/44/40664440b9dcbf61bbd896b919c6b703.png">
+    
+    <img id="dealerCard2" src="https://i.pinimg.com/originals/40/66/44/40664440b9dcbf61bbd896b919c6b703.png"> 
+    
+    <div id="newdealerCards">
+    </div>
+    
+    </div><br>
+
+<center>Your Hand: <div id="playerHand" class="control"></div></center><br>
+
+<div id="cardTable">
+
+    <img id="playingCard1" src="https://i.pinimg.com/originals/40/66/44/40664440b9dcbf61bbd896b919c6b703.png">
+    
+    <img id="playingCard2" src="https://i.pinimg.com/originals/40/66/44/40664440b9dcbf61bbd896b919c6b703.png"> 
+    
+    <div id="newCards">
+    </div>
+    
+    </div><br>
+
+<center> 
+
+<button onclick="hit()" id="hitBtn" class="controller">Hit</button>
+<button onclick="drawCheck()" id="plyBtn" class="controller">Play Hand</button>
+<button onclick="newGame2()" id="newGame" class="controller">New Game</button><br>
+<div id="output"></div><br>
+
+<div id="aoe">
+    <div id="slant1" class="small"></div>
+    <div id="slant2" class="small"></div>
+    <div id="slant3"></div>
+    <div id="slant4" class="small"></div>
+    <div id="slant5" class="small"></div>
+</div>
+
+<div id="betScreen">
+
+    <p id="betText">Place Your Bet</p>
+
+    <br>
+
+    <button id="betAdd" class="control" onclick="betAdd()">+</button> 
+    
+    <div id="bet" class="control">$0</div> 
+    
+    <button id="betSub" class="control" onclick="betSub()">-</button>
+
+    <br><br>
+
+    <div id="chips">
+    <input type="image" class="chip" src="640px-$1_chip_alternate.svg.png" onclick="bet1()">
+    <input type="image" class="chip" src="640px-$5_chip.svg.png" onclick="bet5()">
+    <input type="image" class="chip" src="640px-$25_chip.svg.png" onclick="bet25()">
+    <input type="image" class="chip" src="640px-$100_chip.svg.png" onclick="bet100()">
+    </div>
+
+    Wallet: <div id="wallet" class="control">$500</div>
+
+    <button id="dealBtn" class="control" onclick="newGame()">Deal</button>
+
+</div>
+
+</center>
+
+</body>
+</html>
+
+
+
