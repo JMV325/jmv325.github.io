@@ -40,6 +40,8 @@
 body{
     background-color: rgb(2, 159, 2);
     font-family: 'Fugaz One', cursive;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .controller{
@@ -273,11 +275,11 @@ div.small{
 
 @keyframes betUp{
     0%{transform:translateY(40px)}
-    100%{transform:translateY(-420px)}
+    100%{transform:translateY(-380px)}
 }
 
 @keyframes betDown{
-    0%{transform:translateY(-420px)}
+    0%{transform:translateY(-380px)}
     100%{transform:translateY(40px)}
 }
 
@@ -417,6 +419,10 @@ function bet100(){
 
     document.getElementById("bet").innerHTML = "$" + betTotal
     document.getElementById("wallet").innerHTML = "$" + wallet
+}
+
+function aceConfirm(){
+    aceChange = 1
 }
 
 function newGame2(){
@@ -580,27 +586,6 @@ dealerTotal = card1 + card2
 document.getElementById("dealerHand").innerHTML = card1;
 document.getElementById("output").innerHTML = " ";
 
-
-//Player Ace Events
-if(pcard1 == 11 && playerTotal <= 20){
-
-    if(confirm("You got an Ace! Would you like to count it as a 1?\nOriginal Total: " + (pcard1 + pcard2) + "\nNew Total: " + (1 + pcard2)) == true){
-        pcard1 = 1
-        pcard1Change = 1
-    }else{
-        pcard1 = 11
-    }
-
-}else if(pcard2 == 11 && playerTotal <= 20){
-
-    if(confirm("You got an Ace! Would you like to count it as a 1?\nOriginal Total: " + (pcard1 + pcard2) + "\nNew Total: " + (1 + pcard1)) == true){
-        pcard2 = 1
-        pcard2Change = 1
-    }else{
-        pcard2 = 11
-    }
-
-}else{}
 	
 if(playerTotal == 22){
 	pcard1 = 1
@@ -716,37 +701,20 @@ if(deckValue[selectedCard] == 0){
     location.appendChild(playingCard3)
     document.getElementById("playerHand").innerHTML = playerTotal   
 
-//Ace Events
+
     if(deckValue[selectedCard] == 11 && playerTotal > 21){
 
         playerTotal = playerTotal - 10
 
-    } else if(deckValue[selectedCard] == 11 && playerTotal <= 21){
+    }else if(pcard1Change == 0 && playerTotal > 21){
+        
+        pcard1 = 1
+        pcardChange = 1
 
-        if(confirm("You got an Ace! Would you like to count it as a 1?\nOriginal Total: " + (playerTotal) + "\nNew Total: " + (playerTotal-10)) == true){
-            playerTotal = playerTotal - 10
-        }else{
-            playerTotal = playerTotal
-        }
+    }else if(pcard2Change == 0 && playerTotal > 21){
 
-    }else if(pcard1 == 11 && playerTotal > 21 && pcard1Change == 0){
-
-        if(confirm("You went over 21! Would you like to change your ace to a 1?") == true){
-            playerTotal = playerTotal - 10
-            pcard1Change = 1
-        }else{
-            playerTotal = playerTotal
-        }
-
-    }else if(pcard2 == 11 && playerTotal > 21 && pcard2Change == 0){
-
-        if(confirm("You went over 21! Would you like to change your ace to a 1?") == true){
-            playerTotal = playerTotal - 10
-            pcard2Change = 1
-        }else{
-            playerTotal = playerTotal
-        }
-
+        pcard2 = 1
+        pcard2Change = 1
     }else{}
 
     deckValue[selectedCard] = 0
@@ -757,15 +725,6 @@ if(playerTotal > 21){
 
 	document.getElementById("playerHand").style.color = "red"
 	document.getElementById("dealerHand").innerHTML = dealerTotal;
-
-    /*cardId = 1
-    while(cardId <= cardsNum){
-
-    cardImage = dealerAdditions[cardId]
-    document.getElementById(cardId).src = deckImages[cardImage]
-    cardId = cardId + 1
-
-    }*/
 
     document.getElementById("slant3").innerHTML = "Bust!"
     document.getElementById("slant3").style.textShadow = "2px 2px 1px red"
@@ -786,90 +745,6 @@ if(playerTotal > 21){
     betTotal = 0
 
 }else{}
-
-//Only update dealerTotal if another card will be taken or has been taken
-/*if(dealerTotal < 17 && nextMove == 0 && dhandUpdate == 0){
-
-    dealerTotal = card1 + card2
-
-}else{}
-
-//Dealer's Turn
-if(dealerTotal < 17 && nextMove == 0){
-
-        dealerCard2.src = deckImages[dcardReveal]
-        document.getElementById("dealerHand").innerHTML = dealerTotal
-        selectedCard = Math.floor(Math.random()*deckValue.length);
-
-        if(deckValue[selectedCard] == 0){
-
-            do{
-
-            selectedCard = Math.floor(Math.random()*deckValue.length)
-
-            }while(deckValue[selectedCard] == 0)
-
-        }else{}
-
-            dealerTotal = dealerTotal + deckValue[selectedCard]
-            dealerCard3 = document.createElement('img')
-            dealerCard3.src = cardBack
-            dealerCard3.classList.add('card')
-            dealerCard3.setAttribute('id', idNum)
-            var location = document.getElementById("newdealerCards")
-            location.appendChild(dealerCard3)
-            dealerAdditions.push(selectedCard, )
-   
-            if(card1 == 11 && dealerTotal > 21 && card1Change == 0){
-                dealerTotal = dealerTotal - 10
-                card1Change = 1
-            }else if(card2 == 11 && dealerTotal > 21 && card2Change == 0){
-                dealerTotal = dealerTotal - 10
-                card2Change = 1
-            }else{}
-    
-            if(deckValue[selectedCard] == 11 && dealerTotal > 21){
-                dealerTotal = dealerTotal - 10
-            }else if(deckValue[selectedCard] == 11 && dealerTotal <= 21){
-                dealerTotal = dealerTotal
-            }else{}
-    
-            deckValue[selectedCard] = 0
-            idNum = idNum + 1
-            cardsNum = cardsNum + 1
-            dhandUpdate = 1
-    }else{}*/
-
-    //Dealer Loses
-    /*if(dealerTotal > 21){
-
-        document.getElementById("dealerHand").style.color = "red"
-        document.getElementById("dealerHand").innerHTML = dealerTotal;
-
-        //Reveal Cards
-        cardId = 1
-        while(cardId <= cardsNum){
-
-        cardImage = dealerAdditions[cardId]
-        document.getElementById(cardId).src = deckImages[cardImage]
-        cardId = cardId + 1
-
-        }
-
-        document.getElementById("slant3").innerHTML = "Win!"
-        document.getElementById("slant3").style.textShadow = "2px 2px 1px lightgreen"
-        aoe.style.display = "flex"
-        function animationWipe(){
-            aoe.style.display = "none"
-        }
-        setTimeout(animationWipe, 2000)
-
-        wins = wins + 1
-        document.getElementById("winTotal").innerHTML = "Wins: " + wins
-        hitBtn.style.display = "none";
-        plyBtn.style.display = "none";
-
-}*/
 
 document.getElementById("bet").innerHTML = "$" + betTotal
 document.getElementById("wallet").innerHTML = "$" + wallet
@@ -920,17 +795,6 @@ if(deckValue[selectedCard] == 0){
     deckValue[selectedCard] = 0
 
 }
-
-
-//Reveal Cards
-/*cardId = 1
-while(cardId <= cardsNum){
-
-cardImage = dealerAdditions[cardId]
-document.getElementById(cardId).src = deckImages[cardImage]
-cardId = cardId + 1
-
-}*/
 
 //Dealer Loses
 if(dealerTotal > 21 && playerTotal < 22){
@@ -1055,8 +919,7 @@ document.getElementById("wallet").innerHTML = "$" + wallet
     
     <img id="dealerCard2" src="https://i.pinimg.com/originals/40/66/44/40664440b9dcbf61bbd896b919c6b703.png"> 
     
-    <div id="newdealerCards">
-    </div>
+    <div id="newdealerCards"></div>
     
     </div><br>
 
@@ -1119,6 +982,3 @@ document.getElementById("wallet").innerHTML = "$" + wallet
 
 </body>
 </html>
-
-
-
