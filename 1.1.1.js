@@ -706,6 +706,8 @@ function insurance2(){
     }else{}
 
     insBet = 0
+    document.getElementById("dealBtn").style.display = "initial"
+    document.getElementById("revealBtn").style.display = "none"
 
 }
 
