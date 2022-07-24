@@ -52,8 +52,14 @@
 body{
     background-color: rgb(2, 159, 2);
     font-family: 'Fugaz One', cursive;
-    overflow-x: visible;
-    overflow-y: visible;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+@media screen and (max-width: 1080px){
+    body{
+        overflow-y: visible;
+    }
 }
 
 .controller{
