@@ -341,10 +341,9 @@ function newGame(){
     plyBtn.style.display = "initial"
     aoe.style.opacity = "1"
     aoe.style.display = "none"
-    aoe.style.height = (screen.availHeight / 2) + 50
-    aoe.style.width = (screen.availWidth / 2)
-    document.body.style.overflowY = "hidden"
-    document.body.style.overflowX = "hidden"
+    aoe.style.height = 570
+    aoe.style.width = 960
+    insToggle = 0
     console.clear()
 
 //Update Deck Number
