@@ -33,6 +33,8 @@ var betTotal = 0
 var betSubtraction = 0
 var insToggle = 0
 var insBet = 0
+var split1
+var split2
 
 
 
@@ -341,9 +343,6 @@ function newGame(){
     plyBtn.style.display = "initial"
     aoe.style.opacity = "1"
     aoe.style.display = "none"
-    aoe.style.height = 570
-    aoe.style.width = 960
-    insToggle = 0
     console.clear()
 
 //Update Deck Number
@@ -374,6 +373,7 @@ if(deckValue[selectedCard] == 0){
 }else{}
 
     pcard1 = deckValue[selectedCard]
+    split1 = deck[selectedCard]
     document.getElementById("playingCard1").src = deckImages[selectedCard]
     deckValue[selectedCard] = 0
 
@@ -396,6 +396,7 @@ if(deckValue[selectedCard] == 0){
 }else{}
 
     pcard2 = deckValue[selectedCard]
+    split2 = deck[selectedCard]
     document.getElementById("playingCard2").src = deckImages[selectedCard]
     deckValue[selectedCard] = 0
 
@@ -473,7 +474,7 @@ playerTotal = pcard1 + pcard2
 dealerTotal = card1 + card2
 document.getElementById("playerHand").innerHTML = playerTotal;
 
-//Double Down Event
+//Double Down
 if(playerTotal == 9){
     dblDwn.style.display = "initial"
 }else if(playerTotal == 10){
@@ -486,6 +487,11 @@ if(playerTotal == 9){
 if(card1 == 11){
     insureBtn.style.display = "initial"
 }else{}
+
+//Split
+if(split1.charAt(0) == split2.charAt(0)){
+    splitBtn.style.display = "initial"
+}
 
 //Natural Events
 if(playerTotal == 21 && dealerTotal < 21){
@@ -574,7 +580,9 @@ document.getElementById("wallet").innerHTML = "$" + wallet
 
 function hit(){
 
-//Select New Card
+insureBtn.style.display = "none"
+dblDwn.style.display = "none"
+
 selectedCard = Math.floor(Math.random()*deckValue.length);
 
 if(deckValue[selectedCard] == 0){
@@ -595,7 +603,6 @@ if(deckValue[selectedCard] == 0){
     location.appendChild(playingCard3)
     document.getElementById("playerHand").innerHTML = playerTotal   
 
-//Ace Events
     if(deckValue[selectedCard] == 11 && playerTotal > 21){
 
         playerTotal = playerTotal - 10
@@ -619,7 +626,6 @@ if(deckValue[selectedCard] == 0){
     deckValue[selectedCard] = 0
     document.getElementById("playerHand").innerHTML = playerTotal;
 
-//Dealer wins
 if(playerTotal > 21){
 
 	document.getElementById("playerHand").style.color = "red"
@@ -659,6 +665,10 @@ function insurance(){
     insureBtn.style.display = "none"
     dealBtn.style.display = "none"
     revealBtn.style.display = "initial"
+    hitBtn.style.display = "none"
+	plyBtn.style.display = "none"
+    dblDwn.style.display = "none"
+    insureBtn.style.display = "none"
     insToggle = 1
     document.getElementById("bet").innerHTML = "$" + 0
     document.getElementById("betScreen").style.display = "block"
@@ -706,8 +716,11 @@ function insurance2(){
     }else{}
 
     insBet = 0
+    insToggle = 0
     document.getElementById("dealBtn").style.display = "initial"
     document.getElementById("revealBtn").style.display = "none"
+    document.getElementById("bet").innerHTML = "$" + betTotal
+    document.getElementById("wallet").innerHTML = "$" + wallet
 
 }
 
@@ -794,6 +807,13 @@ document.getElementById("bet").innerHTML = "$" + betTotal
 document.getElementById("wallet").innerHTML = "$" + wallet
 drawCheck()
 
+}
+
+
+
+
+function split(){
+    
 }
 
 
