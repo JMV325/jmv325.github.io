@@ -35,6 +35,8 @@ var insToggle = 0
 var insBet = 0
 var split1
 var split2
+var splitToggle
+var hitLocation
 
 
 
@@ -292,11 +294,13 @@ function bet100(){
 
 
 function newGame2(){
-
+    
+    insToggle = 0
     document.getElementById("betScreen").style.display = "block"
     document.getElementById("newGame").style.display = "none"
     document.getElementById("betScreen").style.animation = "betUp 2s"
     document.getElementById("betScreen").style.animationFillMode = "forwards"
+    document.getElementById("playingCard1").style.display = "initial"
     playingCard1.src = cardBack
     playingCard2.src = cardBack
     dealerCard1.src = cardBack
@@ -305,6 +309,7 @@ function newGame2(){
     document.getElementById("dealerHand").innerHTML = " "
     document.getElementById("newCards").innerHTML = " "
     document.getElementById("newdealerCards").innerHTML = " "
+    
 }
 
 
@@ -343,6 +348,9 @@ function newGame(){
     plyBtn.style.display = "initial"
     aoe.style.opacity = "1"
     aoe.style.display = "none"
+    hitLocation = document.getElementById("newCards")
+    newCards.style.left = "177px"
+    handToggle = 0
     console.clear()
 
 //Update Deck Number
@@ -453,9 +461,8 @@ if(deckValue[selectedCard] == 0){
 playerTotal = pcard1 + pcard2
 dealerTotal = card1 + card2
 
-//Adjust Interface
+//Adjust Dealer Hand
 document.getElementById("dealerHand").innerHTML = card1;
-document.getElementById("output").innerHTML = " ";
 	
 //Auto Correct Hand
 if(playerTotal == 22){
@@ -582,6 +589,7 @@ function hit(){
 
 insureBtn.style.display = "none"
 dblDwn.style.display = "none"
+splitBtn.style.display = "none"
 
 selectedCard = Math.floor(Math.random()*deckValue.length);
 
@@ -594,37 +602,39 @@ if(deckValue[selectedCard] == 0){
     }while(deckValue[selectedCard] == 0)
 
 }else{}
-
-    playerTotal = playerTotal + deckValue[selectedCard]
+    
     playingCard3 = document.createElement('img')
     playingCard3.src = deckImages[selectedCard]
     playingCard3.classList.add('card')
-    var location = document.getElementById("newCards")
-    location.appendChild(playingCard3)
-    document.getElementById("playerHand").innerHTML = playerTotal   
+    hitLocation.appendChild(playingCard3)
 
-    if(deckValue[selectedCard] == 11 && playerTotal > 21){
+    playerTotal = playerTotal + deckValue[selectedCard]
+    document.getElementById("playerHand").innerHTML = playerTotal
 
-        playerTotal = playerTotal - 10
+        if(deckValue[selectedCard] == 11 && playerTotal > 21){
 
-    } else if(deckValue[selectedCard] == 11 && playerTotal <= 21){
+            playerTotal = playerTotal - 10
+    
+        } else if(deckValue[selectedCard] == 11 && playerTotal <= 21){
+    
+            playerTotal = playerTotal
+    
+        }else if(pcard1 == 11 && playerTotal > 21 && pcard1Change == 0){
+    
+            playerTotal = playerTotal - 10
+            pcard1Change = 1
+    
+        }else if(pcard2 == 11 && playerTotal > 21 && pcard2Change == 0){
+    
+            playerTotal = playerTotal - 10
+            pcard2Change = 1
+    
+        }else{}
 
-        playerTotal = playerTotal
-
-    }else if(pcard1 == 11 && playerTotal > 21 && pcard1Change == 0){
-
-        playerTotal = playerTotal - 10
-        pcard1Change = 1
-
-    }else if(pcard2 == 11 && playerTotal > 21 && pcard2Change == 0){
-
-        playerTotal = playerTotal - 10
-        pcard2Change = 1
-
-    }else{}
-
-    deckValue[selectedCard] = 0
-    document.getElementById("playerHand").innerHTML = playerTotal;
+        document.getElementById("playerHand").innerHTML = playerTotal
+        deckValue[selectedCard] = 0
+    
+    
 
 if(playerTotal > 21){
 
@@ -662,6 +672,7 @@ document.getElementById("wallet").innerHTML = "$" + wallet
 
 function insurance(){
 
+    insToggle = 1
     insureBtn.style.display = "none"
     dealBtn.style.display = "none"
     revealBtn.style.display = "initial"
@@ -669,7 +680,6 @@ function insurance(){
 	plyBtn.style.display = "none"
     dblDwn.style.display = "none"
     insureBtn.style.display = "none"
-    insToggle = 1
     document.getElementById("bet").innerHTML = "$" + 0
     document.getElementById("betScreen").style.display = "block"
     document.getElementById("betScreen").style.animation = "betUp 2s"
@@ -713,10 +723,14 @@ function insurance2(){
         wallet = wallet + betTotal
         betTotal = 0
 
-    }else{}
+    }else{
+
+        hitBtn.style.display = "initial"
+        plyBtn.style.display = "initial"
+
+    }
 
     insBet = 0
-    insToggle = 0
     document.getElementById("dealBtn").style.display = "initial"
     document.getElementById("revealBtn").style.display = "none"
     document.getElementById("bet").innerHTML = "$" + betTotal
@@ -813,8 +827,92 @@ drawCheck()
 
 
 function split(){
+
+    splitToggle = 1
+
+    document.getElementById("splitTable").style.display = "flex"
+    document.getElementById("splitBtn").style.display = "none"
+
+    playerTotal = playerTotal - pcard2
+    document.getElementById("playerHand").innerHTML = playerTotal
+
+    var pcard2Clone = document.createElement("img")
+    pcard2Clone.src = document.getElementById("playingCard2").src
+    document.getElementById("splitTable").appendChild(pcard2Clone)
+    //document.getElementById("playingCard2").remove()
+
+    document.getElementById("playingCard2").style.display = "none"
+    document.getElementById("newCards").style.left = "94px"
     
 }
+
+
+
+
+function dealerRefresh(){
+
+    num = 2
+    card1Change = 0
+    card2Change = 0
+    document.getElementById("newdealerCards").innerHTML = " "
+    document.getElementById("splitTable").innerHTML = " "
+
+    do{
+
+        selectedCard = Math.floor(Math.random()*deckValue.length);
+        num = num + 1
+    
+    if(deckValue[selectedCard] == 0){
+    
+        do{
+    
+        selectedCard = Math.floor(Math.random()*deckValue.length)
+    
+        }while(deckValue[selectedCard] == 0)
+    
+    }else{}
+    
+        card1 = deckValue[selectedCard]
+        document.getElementById("dealerCard1").src = deckImages[selectedCard]
+        deckValue[selectedCard] = 0
+    
+    }while(num < 3)
+    
+    //card2
+    do{
+    
+        selectedCard = Math.floor(Math.random()*deckValue.length);
+        num = num + 1
+    
+    if(deckValue[selectedCard] == 0){
+    
+        do{
+    
+        selectedCard = Math.floor(Math.random()*deckValue.length)
+    
+        }while(deckValue[selectedCard] == 0)
+    
+    }else{}
+    
+        card2 = deckValue[selectedCard]
+        dcardReveal = selectedCard
+        deckValue[selectedCard] = 0
+        document.getElementById("dealerCard2").src = cardBack
+    
+    }while(num < 4)
+
+
+    if(dealerTotal == 22){
+        card2 = 1
+        card2Change = 1
+    }else{}
+
+    dealerTotal = card1 + card2
+    document.getElementById("dealerHand").innerHTML = card1;
+
+
+}
+
 
 
 
@@ -862,6 +960,8 @@ if(deckValue[selectedCard] == 0){
     deckValue[selectedCard] = 0
 
 }
+
+var betStore = betTotal
 
 //Dealer Loses
 if(dealerTotal > 21 && playerTotal < 22){
@@ -938,18 +1038,40 @@ if(dealerTotal < 22 && dealerTotal > playerTotal){
     setTimeout(animationWipe, 2000)
 
     betTotal = 0
-    document.getElementById("bet").innerHTML = "$" + betTotal
-    document.getElementById("wallet").innerHTML = "$" + wallet
-    hitBtn.style.display = "none";
-    plyBtn.style.display = "none";
-    document.getElementById("newGame").style.display = "initial"
 
 }else{}
 
-document.getElementById("bet").innerHTML = "$" + betTotal
-document.getElementById("wallet").innerHTML = "$" + wallet
-hitBtn.style.display = "none";
-plyBtn.style.display = "none";
-document.getElementById("newGame").style.display = "initial"
+if(splitToggle == 1){
+
+    splitToggle = 0
+    betTotal = betStore
+    wallet = wallet - betTotal
+
+    function animationWipe(){
+
+        dealerRefresh()
+
+        playerTotal = pcard2
+        document.getElementById("playerHand").innerHTML = playerTotal
+
+        document.getElementById("playingCard2").style.display = "initial"
+        document.getElementById("playingCard1").style.display = "none"
+        document.getElementById("splitTable").style.display = "none"
+        document.getElementById("newCards").innerHTML = " "
+
+        document.getElementById("playerHand").style.color = "black"
+        document.getElementById("dealerHand").style.color = "black"
+    }
+    setTimeout(animationWipe, 3000)
+
+}else{
+
+    hitBtn.style.display = "none";
+    plyBtn.style.display = "none";
+    document.getElementById("newGame").style.display = "initial"
+    document.getElementById("bet").innerHTML = "$" + betTotal
+    document.getElementById("wallet").innerHTML = "$" + wallet
+
+}
 
 }
