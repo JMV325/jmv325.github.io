@@ -40,6 +40,14 @@ var hitLocation
 
 
 
+musicVolume.addEventListener("change", volumeControl)
+
+function volumeControl(){
+    var volVal = document.getElementById("musicVolume").value
+    document.getElementById("backgroundMusic").volume = volVal/10
+
+}
+
 
 function betAdd(){
     betSubtraction = 0
@@ -309,7 +317,7 @@ function newGame2(){
     document.getElementById("dealerHand").innerHTML = " "
     document.getElementById("newCards").innerHTML = " "
     document.getElementById("newdealerCards").innerHTML = " "
-    
+
 }
 
 
@@ -325,7 +333,7 @@ function newGame(){
     }
     setTimeout(animationWipe, 2000)
 
-    window.resizeTo(1097, 535)
+    //window.resizeTo(1097, 535)
     deckValue = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10,]
     deckImages = ["https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Ace_of_hearts.svg/83px-Ace_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/2_of_hearts.svg/83px-2_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/3_of_hearts.svg/83px-3_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/4_of_hearts.svg/83px-4_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/5_of_hearts.svg/83px-5_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/6_of_hearts.svg/83px-6_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/7_of_hearts.svg/83px-7_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/8_of_hearts.svg/83px-8_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/9_of_hearts.svg/83px-9_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/10_of_hearts.svg/83px-10_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jack_of_hearts2.svg/83px-Jack_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Queen_of_hearts2.svg/83px-Queen_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/King_of_hearts2.svg/83px-King_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ace_of_diamonds.svg/83px-Ace_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2_of_diamonds.svg/83px-2_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/3_of_diamonds.svg/83px-3_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/4_of_diamonds.svg/83px-4_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/5_of_diamonds.svg/83px-5_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/6_of_diamonds.svg/83px-6_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/7_of_diamonds.svg/83px-7_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/8_of_diamonds.svg/83px-8_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/9_of_diamonds.svg/83px-9_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/10_of_diamonds.svg/83px-10_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Jack_of_diamonds2.svg/83px-Jack_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Queen_of_diamonds2.svg/83px-Queen_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/King_of_diamonds2.svg/83px-King_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ace_of_clubs.svg/83px-Ace_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2_of_clubs.svg/83px-2_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/3_of_clubs.svg/83px-3_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/4_of_clubs.svg/83px-4_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/5_of_clubs.svg/83px-5_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/6_of_clubs.svg/83px-6_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/7_of_clubs.svg/83px-7_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/8_of_clubs.svg/83px-8_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/9_of_clubs.svg/83px-9_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/10_of_clubs.svg/83px-10_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jack_of_clubs2.svg/83px-Jack_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_clubs2.svg/83px-Queen_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/King_of_clubs2.svg/83px-King_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/83px-Ace_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2_of_spades.svg/83px-2_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/3_of_spades.svg/83px-3_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/4_of_spades.svg/83px-4_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/5_of_spades.svg/83px-5_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/6_of_spades.svg/83px-6_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/7_of_spades.svg/83px-7_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/8_of_spades.svg/83px-8_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/9_of_spades.svg/83px-9_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/10_of_spades.svg/83px-10_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Jack_of_spades2.svg/83px-Jack_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_spades2.svg/83px-Queen_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/King_of_spades2.svg/83px-King_of_spades2.svg.png","https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Ace_of_hearts.svg/83px-Ace_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/2_of_hearts.svg/83px-2_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/3_of_hearts.svg/83px-3_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/4_of_hearts.svg/83px-4_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/5_of_hearts.svg/83px-5_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/6_of_hearts.svg/83px-6_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/7_of_hearts.svg/83px-7_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/8_of_hearts.svg/83px-8_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/9_of_hearts.svg/83px-9_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/10_of_hearts.svg/83px-10_of_hearts.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jack_of_hearts2.svg/83px-Jack_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Queen_of_hearts2.svg/83px-Queen_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/King_of_hearts2.svg/83px-King_of_hearts2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ace_of_diamonds.svg/83px-Ace_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2_of_diamonds.svg/83px-2_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/3_of_diamonds.svg/83px-3_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/4_of_diamonds.svg/83px-4_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/5_of_diamonds.svg/83px-5_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/6_of_diamonds.svg/83px-6_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/7_of_diamonds.svg/83px-7_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/8_of_diamonds.svg/83px-8_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/9_of_diamonds.svg/83px-9_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/10_of_diamonds.svg/83px-10_of_diamonds.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Jack_of_diamonds2.svg/83px-Jack_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Queen_of_diamonds2.svg/83px-Queen_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/King_of_diamonds2.svg/83px-King_of_diamonds2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ace_of_clubs.svg/83px-Ace_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2_of_clubs.svg/83px-2_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/3_of_clubs.svg/83px-3_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/4_of_clubs.svg/83px-4_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/5_of_clubs.svg/83px-5_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/6_of_clubs.svg/83px-6_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/7_of_clubs.svg/83px-7_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/8_of_clubs.svg/83px-8_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/9_of_clubs.svg/83px-9_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/10_of_clubs.svg/83px-10_of_clubs.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Jack_of_clubs2.svg/83px-Jack_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_clubs2.svg/83px-Queen_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/King_of_clubs2.svg/83px-King_of_clubs2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Ace_of_spades.svg/83px-Ace_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/2_of_spades.svg/83px-2_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/3_of_spades.svg/83px-3_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/4_of_spades.svg/83px-4_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/5_of_spades.svg/83px-5_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/6_of_spades.svg/83px-6_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/7_of_spades.svg/83px-7_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/8_of_spades.svg/83px-8_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/9_of_spades.svg/83px-9_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/10_of_spades.svg/83px-10_of_spades.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Jack_of_spades2.svg/83px-Jack_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Queen_of_spades2.svg/83px-Queen_of_spades2.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/King_of_spades2.svg/83px-King_of_spades2.svg.png",]
     document.getElementById("newCards").innerHTML = " "
@@ -352,6 +360,10 @@ function newGame(){
     newCards.style.left = "177px"
     handToggle = 0
     console.clear()
+
+
+    toggleMute()
+
 
 //Update Deck Number
 var loopNum = 0
@@ -498,7 +510,9 @@ if(card1 == 11){
 //Split
 if(split1.charAt(0) == split2.charAt(0)){
     splitBtn.style.display = "initial"
-}
+}else if(pcard1 == 10 && pcard2 == 10){
+    splitBtn.style.display = "initial"
+}else{}
 
 //Natural Events
 if(playerTotal == 21 && dealerTotal < 21){
@@ -643,6 +657,7 @@ if(playerTotal > 21){
 
     document.getElementById("slant3").innerHTML = "Bust!"
     document.getElementById("slant3").style.textShadow = "2px 2px 1px red"
+    
     aoe.style.display = "flex"
     function animationWipe(){
         aoe.style.display = "none"
@@ -706,6 +721,7 @@ function insurance2(){
 
         document.getElementById("slant3").innerHTML = "Insured!"
         document.getElementById("slant3").style.textShadow = "2px 2px 1px orange"
+
         aoe.style.display = "flex"
         function animationWipe(){
             aoe.style.display = "none"
@@ -801,6 +817,7 @@ if(playerTotal > 21){
 
     document.getElementById("slant3").innerHTML = "Bust!"
     document.getElementById("slant3").style.textShadow = "2px 2px 1px red"
+
     aoe.style.display = "flex"
     function animationWipe(){
         aoe.style.display = "none"
@@ -814,12 +831,13 @@ if(playerTotal > 21){
     nextMove = 1
 
     betTotal = 0
+    wallet = wallet + betTotal
 
-}else{}
-
-document.getElementById("bet").innerHTML = "$" + betTotal
-document.getElementById("wallet").innerHTML = "$" + wallet
-drawCheck()
+}else{
+    document.getElementById("bet").innerHTML = "$" + betTotal
+    document.getElementById("wallet").innerHTML = "$" + wallet
+    drawCheck()
+}
 
 }
 
@@ -829,6 +847,8 @@ drawCheck()
 function split(){
 
     splitToggle = 1
+
+    document.body.style.overflowY = "visible"
 
     document.getElementById("splitTable").style.display = "flex"
     document.getElementById("splitBtn").style.display = "none"
@@ -1047,8 +1067,6 @@ if(splitToggle == 1){
     betTotal = betStore
     wallet = wallet - betTotal
 
-    function animationWipe(){
-
         dealerRefresh()
 
         playerTotal = pcard2
@@ -1061,13 +1079,14 @@ if(splitToggle == 1){
 
         document.getElementById("playerHand").style.color = "black"
         document.getElementById("dealerHand").style.color = "black"
-    }
-    setTimeout(animationWipe, 3000)
+
+        body.style.overflowY = "visible"
 
 }else{
 
     hitBtn.style.display = "none";
     plyBtn.style.display = "none";
+    insureBtn.style.display = "none"
     document.getElementById("newGame").style.display = "initial"
     document.getElementById("bet").innerHTML = "$" + betTotal
     document.getElementById("wallet").innerHTML = "$" + wallet
@@ -1075,3 +1094,18 @@ if(splitToggle == 1){
 }
 
 }
+
+
+
+
+function toggleMute() {
+    var music = document.getElementById("backgroundMusic");
+    music.muted = false;
+    music.play();
+    music.volume = 0.8;
+
+    var crowd = document.getElementById("crowdNoise");
+    crowd.muted = false;
+    crowd.play();
+    crowd.volume = 0.3;
+ }
