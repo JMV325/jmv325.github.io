@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 #cardTable{
     display:flex;
@@ -62,12 +63,13 @@ body{
     background-color: rgb(2, 159, 2);
     font-family: 'Fugaz One', cursive;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 @media screen and (max-width: 1080px){
     body{
-        overflow-y: visible;
         overflow-x: hidden;
+        overflow-y: visible;
     }
 }
 
@@ -76,6 +78,7 @@ body{
     font-family:'Fugaz One', cursive;
     font-size: 15px;
     display: none;
+    padding: 5px 0px;
 }
 
 #dblDwn{
@@ -197,7 +200,18 @@ body{
     font-size:15px;
 }
 
+#buttons{
+    width: auto;
+    display: flex;
+    justify-content: center;
+}
+
 #deckSetting{
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#bmusicVol{
     opacity: 0;
     transition: opacity 1s;
 }
@@ -214,6 +228,10 @@ body{
 }
 
 #settingsMenu:hover #deckSetting{
+    opacity: 1;
+}
+
+#settingsMenu:hover #bmusicVol{
     opacity: 1;
 }
 
@@ -277,7 +295,7 @@ div.small{
 }
 	
 @keyframes titleSlide{
-	0%{transform:translateX(540px)}
+	0%{transform:translateX(780px)}
 	100%{transform:translateX(0px)}
 } 
 	
@@ -287,29 +305,29 @@ div.small{
 }
 
 @keyframes slantSlide1{
-	0%{transform:translateY(440px); opacity: 0;}
+	0%{transform:translateY(217.5px); opacity: 0;}
     50%{transform:translateY(0px); opacity: 1;}
-	100%{transform:translateY(-440px); opacity: 0;}
+	100%{transform:translateY(-217.5px); opacity: 0;}
 }
 
 @keyframes slantSlide2{
-    0%{transform:translateY(-440px); opacity: 0;}
+    0%{transform:translateY(-217.5px); opacity: 0;}
 	50%{transform:translateY(0px); opacity: 1;}
-    100%{transform:translateY(440px); opacity: 0;}
+    100%{transform:translateY(217.5px); opacity: 0;}
 }
 
 @keyframes middle{
-    0%{transform:translateX(440px); opacity: 0;}
+    0%{transform:translateX(400px); opacity: 0;}
     50%{transform:translateX(0px); opacity: 1;}
-	100%{transform:translateX(-440px); opacity: 0;}
+	100%{transform:translateX(-400px); opacity: 0;}
 }
 
 @keyframes betUp{
     0%{transform:translateY(40px)}
-    100%{transform:translateY(-380px)}
+    100%{transform:translateY(-360px)}
 }
 
 @keyframes betDown{
-    0%{transform:translateY(-380px)}
-    100%{transform:translateY(40px)}
+    0%{transform:translateY(-360px); opacity: 1;}
+    100%{transform:translateY(80px); opacity: 0;}
 }
