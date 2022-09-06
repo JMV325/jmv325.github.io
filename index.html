@@ -26,6 +26,13 @@
         <input type="text" id="decknumSet">
     </div>
 
+    <div id="bmusicVol" class="menuItem">
+        <p>Music Volume:</p>
+        <input type="range" min="0" max="10" value="8" id="musicVolume">
+    </div>
+
+    <button id="bmSet" onclick="volumeControl()">Set Volume</button>
+
 </div>
 <br><br><br>
 <center>Dealers Hand: <div id="dealerHand" class="control"></div></center><br>
@@ -58,15 +65,16 @@
 <div id="splitTable"></div>
 
 
-<center> 
 
-<button onclick="hit()" id="hitBtn" class="controller">Hit</button>
-<button onclick="drawCheck()" id="plyBtn" class="controller">Play Hand</button>
-<button onclick="newGame2()" id="newGame" class="controller">New Game</button><br>
-<button onclick="doubleDown()" id="dblDwn" class="controller">Double Down</button>
-<button onclick="insurance()" id="insureBtn" class="controller">Insurance</button>
-<button onclick="split()" id="splitBtn" class="controller">Split</button>
-<div id="output"></div><br>
+
+<div id="buttons">
+    <button onclick="hit()" id="hitBtn" class="controller">Hit</button>
+    <button onclick="drawCheck()" id="plyBtn" class="controller">Play Hand</button>
+    <button onclick="newGame2()" id="newGame" class="controller">New Game</button><br>
+    <button onclick="doubleDown()" id="dblDwn" class="controller">Double Down</button>
+    <button onclick="insurance()" id="insureBtn" class="controller">Insurance</button>
+    <button onclick="split()" id="splitBtn" class="controller">Split</button>
+</div>
 
 <div id="aoe">
     <div id="slant1" class="small"></div>
@@ -76,6 +84,7 @@
     <div id="slant5" class="small"></div>
 </div>
 
+<center> 
 <div id="betScreen">
 
     <p id="betText">Place Your Bet</p>
@@ -103,8 +112,16 @@
     <button id="revealBtn" class="controller" onclick="insurance2()">Reveal</button>
 
 </div>
-
 </center>
+
+<audio id="backgroundMusic" autoplay loop muted="true">
+    <source src="backgroundMusic.mp3" type="audio/mp3">
+</audio>
+
+<audio id="crowdNoise" autoplay loop muted="true">
+    <source src="crowd.mp3" type="audio/mp3">
+</audio>
+
 
 </body>
 </html>
