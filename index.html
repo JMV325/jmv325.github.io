@@ -13,9 +13,9 @@
 
 
 <body>
-<center><h1 id="title1"><b><i>BLACKJACK</i><b></b></h1></center>
-<center><h1 id="title2"><b><i>BLACKJACK</i><b></b></h1></center>
-<center><h1 id="title3"><b><i>BLACKJACK</i><b></b></h1></center>
+<center><h1 id="title1"><b><i>BLACKJACK</i></b></h1></center>
+<center><h1 id="title2"><b><i>BLACKJACK</i></b></h1></center>
+<center><h1 id="title3"><b><i>BLACKJACK</i></b></h1></center>
 <p id="winTotal">Wins:</p>
 <p id="lossTotal">Losses:</p>
 <p id="drawTotal">Draws:</p>
@@ -28,10 +28,14 @@
 
     <div id="bmusicVol" class="menuItem">
         <p>Music Volume:</p>
-        <input type="range" min="0" max="10" value="8" id="musicVolume">
+        <input type="range" min="0" max="10" value="10" id="musicVolume">
     </div>
 
-    <button id="bmSet" onclick="volumeControl()">Set Volume</button>
+	
+	<div id="bmSet" class="menuItem">
+		<button onclick="volumeControl()">Set Volume</button>
+	</div>
+   
 
 </div>
 <br><br><br>
@@ -125,6 +129,4 @@
 
 </body>
 </html>
-
-
 
