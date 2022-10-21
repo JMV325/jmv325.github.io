@@ -216,6 +216,11 @@ body{
     transition: opacity 1s;
 }
 
+#bmSet{
+	opacity: 0;
+    transition: opacity 1s;
+}
+
 #deckSetting input{
     width: 20px;
 }
@@ -233,6 +238,10 @@ body{
 
 #settingsMenu:hover #bmusicVol{
     opacity: 1;
+}
+
+#settingsMenu:hover #bmSet{
+	opacity: 1;
 }
 
 img.card{
@@ -279,6 +288,7 @@ div.small{
     height: 100px;
     width: 500px;
     animation: middle 2s;
+
 }
 
 #slant4{
@@ -331,3 +341,4 @@ div.small{
     0%{transform:translateY(-360px); opacity: 1;}
     100%{transform:translateY(80px); opacity: 0;}
 }
+
