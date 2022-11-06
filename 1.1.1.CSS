@@ -72,6 +72,14 @@ body{
     }
 }
 
+@media screen and (orientation: portrait) {
+    body {
+      width: auto;
+      height: auto;
+    }
+}
+
+
 .controller{
     width:110px;
     font-family:'Fugaz One', cursive;
