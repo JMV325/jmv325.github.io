@@ -35,6 +35,12 @@
 	<div id="bmSet" class="menuItem">
 		<button onclick="volumeControl()">Set Volume</button>
 	</div>
+
+    <br>
+
+    <div id="crowdBtn" class="menuItem" value="off">
+		<button id="crowdMuteBtn" onclick="crowdOnOff()">Mute Crowd</button>
+	</div>
    
 
 </div>
@@ -126,7 +132,17 @@
     <source src="crowd.mp3" type="audio/mp3">
 </audio>
 
+<audio id="cardNoise" autoplay muted="true">
+    <source src="cardSwoosh3.mp3" type="audio/mp3">
+</audio>
+
+<audio id="crowdCheer" autoplay muted="true">
+    <source src="crowdCheer.mp3" type="audio/mp3">
+</audio>
+
+<audio id="crowdAww" autoplay muted="true">
+    <source src="crowdAww.mp3" type="audio/mp3">
+</audio>
 
 </body>
 </html>
-
