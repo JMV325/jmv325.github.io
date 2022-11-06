@@ -1,4 +1,3 @@
-
 var playerTotal
 var dealerTotal
 var card1
@@ -39,17 +38,7 @@ var splitToggle
 var betStore
 var hitLocation
 var musicToggle = 0
-
-
-
-
-function volumeControl(){
-    var volVal = document.getElementById("musicVolume").value
-    document.getElementById("backgroundMusic").volume = volVal/10
-	
-	musicToggle = 1
-
-}
+var crowdToggle = 0
 
 
 function betAdd(){
@@ -309,6 +298,9 @@ function newGame2(){
     insToggle = 0
     document.getElementById("betScreen").style.display = "block"
     document.getElementById("newGame").style.display = "none"
+    if(aoe.style.display == "flex"){
+        aoe.style.display = "none"
+    }else{}
     document.getElementById("betScreen").style.animation = "betUp 2s"
     document.getElementById("betScreen").style.animationFillMode = "forwards"
     document.getElementById("playingCard1").style.display = "initial"
@@ -366,7 +358,11 @@ function newGame(){
 	
 	
 if(musicToggle == 0){
-	 toggleMute() //music on
+	 toggleMusic() //music on
+}else{}
+
+if(crowdToggle == 0){
+    toggleCrowd()
 }else{}
 
 	
@@ -526,6 +522,8 @@ if(split1.charAt(0) == split2.charAt(0)){
 //Natural Events
 if(playerTotal == 21 && dealerTotal < 21){
 
+    crowdCheer.play()
+
     document.getElementById("dealerHand").style.color = "red"
     document.getElementById("dealerHand").innerHTML = dealerTotal;
     dealerCard2.src = deckImages[dcardReveal]
@@ -575,6 +573,8 @@ if(playerTotal == 21 && dealerTotal < 21){
 
 }else if(playerTotal < 21 && dealerTotal == 21 && card2 == 11){
 
+    crowdAww.play()
+
     document.getElementById("playerHand").style.color = "red"
     document.getElementById("dealerHand").innerHTML = dealerTotal;
     dealerCard2.src = deckImages[dcardReveal]
@@ -609,9 +609,12 @@ document.getElementById("wallet").innerHTML = "$" + wallet
 
 function hit(){
 
+cardNoise.pause()
+cardNoise.currentTime = 0
+cardNoise.play()
+
 insureBtn.style.display = "none"
 dblDwn.style.display = "none"
-splitBtn.style.display = "none"
 splitBtn.style.display = "none"
 
 selectedCard = Math.floor(Math.random()*deckValue.length);
@@ -660,6 +663,8 @@ if(deckValue[selectedCard] == 0){
     
 
 if(playerTotal > 21){
+
+    crowdAww.play()
 
 	document.getElementById("dealerHand").innerHTML = dealerTotal;
 
@@ -735,6 +740,8 @@ function insurance2(){
 
     if(card2 == 10){
 
+        crowdAww.play()
+
         document.getElementById("playerHand").style.color = "red"
 	    document.getElementById("dealerHand").innerHTML = dealerTotal;
 
@@ -778,6 +785,8 @@ function insurance2(){
 
 
 function doubleDown(){
+
+    cardNoise.play()
 
     betTotal = betTotal * 2
     hitBtn.style.display = "none"
@@ -830,6 +839,8 @@ if(deckValue[selectedCard] == 0){
 
 //Dealer wins
 if(playerTotal > 21){
+
+    crowdAww.play()
 
 	document.getElementById("playerHand").style.color = "red"
 	document.getElementById("dealerHand").innerHTML = dealerTotal;
@@ -959,6 +970,9 @@ function dealerRefresh(){
 function drawCheck(){
 
     dealerCard2.src = deckImages[dcardReveal]
+    splitBtn.style.display = "none"
+    insureBtn.style.display = "none"
+    dblDwn.style.display = "none"
 
 //Dealer Draws Cards After Player is Done
 while(dealerTotal < 17){
@@ -1005,6 +1019,8 @@ betStore = betTotal
 //Dealer Loses
 if(dealerTotal > 21 && playerTotal < 22){
 
+    crowdCheer.play()
+
     document.getElementById("dealerHand").style.color = "red"
     document.getElementById("dealerHand").innerHTML = dealerTotal;
     wins = wins + 1
@@ -1022,6 +1038,8 @@ if(dealerTotal > 21 && playerTotal < 22){
     betTotal = 0
 
 }else if(playerTotal > dealerTotal){
+
+    crowdCheer.play()
 
     document.getElementById("dealerHand").style.color = "red"
     document.getElementById("dealerHand").innerHTML = dealerTotal;
@@ -1062,6 +1080,8 @@ if(dealerTotal > 21 && playerTotal < 22){
 
 //Dealer Wins
 if(dealerTotal < 22 && dealerTotal > playerTotal){
+
+    crowdAww.play()
 
     document.getElementById("playerHand").style.color = "red"
     document.getElementById("dealerHand").innerHTML = dealerTotal;
@@ -1122,15 +1142,58 @@ function splitCheck(){
 }
 
 
-function toggleMute() {
+function toggleMusic() {
     var music = document.getElementById("backgroundMusic");
     music.muted = false;
     music.play();
-    music.volume = 0.8;
+    music.volume = 1;
+}
+
+function toggleCrowd(){
 
     var crowd = document.getElementById("crowdNoise");
     crowd.muted = false;
     crowd.play();
     crowd.volume = 0.3;
+
+    var cardNoise = document.getElementById("cardNoise");
+    cardNoise.muted = false;
+    cardNoise.volume = 1;
+
+    var crowdCheer = document.getElementById("crowdCheer");
+    crowdCheer.muted = false;
+    crowdCheer.volume = 0.3;
+
+    var crowdAww = document.getElementById("crowdAww");
+    crowdAww.muted = false;
+    crowdAww.volume = 0.6;
  }
+
+ function volumeControl(){
+    var volVal = document.getElementById("musicVolume").value
+    document.getElementById("backgroundMusic").volume = volVal/10
 	
+	musicToggle = 1
+
+}
+
+function crowdOnOff(){
+    if(crowdBtn.value == "off"){
+        crowdBtn.value = "on"
+        crowdMute()
+        crowdToggle = 1
+        crowdMuteBtn.innerHTML = "Unmute Crowd"
+    }else{
+        crowdBtn.value = "off"
+        crowdToggle = 0
+        toggleCrowd()
+        crowdMuteBtn.innerHTML = "Mute Crowd"
+    }
+}
+
+function crowdMute(){
+    crowdToggle = 1
+    document.getElementById("crowdNoise").muted="true"
+    document.getElementById("crowdCheer").muted="true"
+    document.getElementById("crowdAww").muted="true"
+}
