@@ -1,0 +1,155 @@
+<html>
+
+<head>
+    <script src ="2.1.1.js"></script>
+    <link rel="stylesheet" href="2.1.1.CSS">
+</head>
+
+<body>
+	
+	<h1 id="title1"><b><i>BLACKJACK</i></b></h1>
+	<h1 id="title2"><b><i>BLACKJACK</i></b></h1>
+	<h1 id="title3"><b><i>BLACKJACK</i></b></h1>
+
+	<p id="wins">Wins:</p>
+	<p id="losses">Losses:</p>
+	<p id="draws">Draws:</p>
+
+	<div id="settingsMenu">Settings
+
+		<div id="musicControl">
+
+			<p>Music Volume:</p>
+			<input id="musicSlider" type="range" min="0" max="100" value="50">
+
+		</div>
+	
+		<br>
+	
+		<div id="crowdControl">
+
+			<p>Crowd Volume:</p>
+
+			<input id="crowdSlider" type="range" min="0" max="100" value="50">
+
+		</div>
+
+	</div>
+
+	<br>
+	<br>
+	<br>
+	
+	<center>
+	<div id="screen">
+
+		<br>
+	
+		<p id="dealerHand" class="score"></p>
+		<div id="dealerTable"></div>
+
+		<br>
+
+		<p id="playerHand" class="score"></p>
+		<div id="playerTable"></div>
+
+		<p id="playerHand2" class="score"></p> 
+		<div id="playerTable2Location"></div>
+
+		<br>
+
+		<button id="newGameBtn" class="button" onclick="betScreenUp()">New Game</button>
+		<button id="hitBtn" class="button" onclick="hit()">Hit</button>
+		<button id="splitBtn" class="button" onclick="split()">Split</button>
+		<button id="doubleDownBtn" class="button" onclick="doubleDown()">Double Down</button>
+		<button id="playHandBtn" class="button" onclick="endGame()">Play Hand</button>
+		
+	</div>
+	</center>
+
+	<div id="betScreen">
+
+		<center>
+		<p id="betText">Place Your Bet</p>
+	
+		<br>
+	
+		<button id="betAdd" class="button" onclick="betAdd()">+</button> 
+		
+		$<div id="betAmount" class="button">0</div> 
+		
+		<button id="betSub" class="button" onclick="betSub()">-</button>
+	
+		<br><br>
+	
+		<div id="chips">
+		<input type="image" class="chip" src="640px-$1_chip_alternate.svg.png" onclick="bet1()">
+		<input type="image" class="chip" src="640px-$5_chip.svg.png" onclick="bet5()">
+		<input type="image" class="chip" src="640px-$25_chip.svg.png" onclick="bet25()">
+		<input type="image" class="chip" src="640px-$100_chip.svg.png" onclick="bet100()">
+		</div>
+	
+		Wallet: <div id="wallet">$500</div>
+	
+		<button id="dealBtn" class="button" onclick="newGame(); updateAudio();">Deal</button>
+		</center>
+	
+	</div>
+
+	<audio id="backgroundMusic" autoplay loop muted="true">
+
+		<source src="backgroundMusic.mp3" type="audio/mp3">
+
+	</audio>
+
+	<audio id="song2" autoplay loop muted="true">
+
+		<source src="Wii Shop Bossa Nova Cover.mp3" type="audio/mp3">
+
+	</audio>
+
+	<audio id="song3" autoplay loop muted="true">
+
+		<source src="Wii Party Menu Theme cover.mp3" type="audio/mp3">
+
+	</audio>
+
+	<audio id="song4" autoplay loop muted="true">
+
+		<source src="K.K. Cruisin' (Animal Crossing) Jazz Cover - The Consouls.mp3" type="audio/mp3">
+
+	</audio>
+
+	<audio id="song5" autoplay loop muted="true">
+
+		<source src="Song of Storms but it's a swing jazz cover.mp3" type="audio/mp3">
+
+	</audio>
+
+	<audio id="cardNoise" autoplay muted="true">
+
+		<source src="cardSwoosh3.mp3" type="audio/mp3">
+
+	</audio>
+	
+	<audio id="crowdNoise" autoplay loop muted="true">
+
+		<source src="crowd.mp3" type="audio/mp3">
+
+	</audio>
+	
+	<audio id="crowdCheer" autoplay muted="true">
+
+		<source src="crowdCheer.mp3" type="audio/mp3">
+
+	</audio>
+	
+	<audio id="crowdAww" autoplay muted="true">
+
+		<source src="crowdAww.mp3" type="audio/mp3">
+
+	</audio>
+
+</body>
+
+</html>
